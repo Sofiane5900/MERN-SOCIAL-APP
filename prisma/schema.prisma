@@ -10,18 +10,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// NextAuth models
+
 model Account {
   id                 String  @id @default(cuid())
   userId             String  @map("user_id")
   type               String
   provider           String
   providerAccountId  String  @map("provider_account_id")
-  refresh_token      String? @db.Text
-  access_token       String? @db.Text
+  refresh_token      String? 
+  access_token       String? 
   expires_at         Int?
   token_type         String?
   scope              String?
-  id_token           String? @db.Text
+  id_token           String? 
   session_state      String?
  
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -40,6 +42,16 @@ model Session {
   @@map("sessions")
 }
  
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+ 
+  @@unique([identifier, token])
+  @@map("verificationtokens")
+}
+
+//Application specific models
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -50,13 +62,4 @@ model User {
   sessions      Session[]
  
   @@map("users")
-}
- 
-model VerificationToken {
-  identifier String
-  token      String
-  expires    DateTime
- 
-  @@unique([identifier, token])
-  @@map("verificationtokens")
 }
