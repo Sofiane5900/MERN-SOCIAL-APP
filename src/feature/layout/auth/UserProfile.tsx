@@ -4,6 +4,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { User2 } from 'lucide-react'
+import { LogoutButton } from './LogoutButton'
 
 export const UserProfile = async () => {
     const session = await getAuthSession()
@@ -22,9 +23,9 @@ export const UserProfile = async () => {
                     Profile
                     </Link>
                 </DropdownMenuItem>
-                
+                <LogoutButton/>   
             </DropdownMenuContent>
-        </DropdownMenu>
+        </DropdownMenu> 
 
     </div>
   )
