@@ -35,7 +35,7 @@ const main = async () => {
         const post = {
             content: faker.lorem.sentence(randomWordCount),
             userId: users[randomUserIndex].id,
-            title: faker.lorem.sentence(3), //
+            title: faker.lorem.sentence(3), // ! This is a new field
         } satisfies Prisma.PostUncheckedCreateInput;
         const p = await prisma.post.create({ data: post });
         posts.push(p);
@@ -60,6 +60,15 @@ const main = async () => {
         await prisma.like.create({ data: like });
         
     }
-
-
 }   
+
+main().then(async () => {
+    console.log('Seed complete');
+    await prisma.$disconnect();
+}).catch(async e => {
+    console.error(e);
+    await prisma.$disconnect();
+    process.exit(1);
+})
+    
+
