@@ -90,7 +90,7 @@ model Post {
   parentId   String?
   userId  String
   createdAt DateTime @default(now())
-  author User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id])
   likes Like[]
   replies Post[] @relation("comments")
   parent Post? @relation("comments", fields: [parentId], references: [id])
